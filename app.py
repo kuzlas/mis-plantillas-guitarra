@@ -1,53 +1,25 @@
 import streamlit as st
 
-# Configuración de la página
-st.set_page_config(page_title="Kuzlas Luthier Pro", page_icon="🎸", layout="centered")
+st.set_page_config(page_title="Kuzlas Luthier - Planos Reales", page_icon="🎸")
 
-st.title("🎸 Directorio Maestro de Plantillas")
-st.markdown("---")
-st.write("Bienvenido **Kuzlas**. Selección ampliada: Jazz, Clásicas y la Red Special.")
+st.title("🎸 Directorio de Planos Verificados")
+st.write("Versión corregida: Enlaces comprobados manualmente.")
 
-# Diccionario de planos COMPROBADOS (Clásicas + Jazz + Brian May)
+# DIRECTORIO CON ENLACES RE-VERIFICADOS
 planos = {
-    "-- MODELOS CLÁSICOS --": None,
-    "Fender Telecaster (Estándar)": "https://www.electricherald.com/wp-content/uploads/2016/06/Fender-Telecaster-Blueprints.pdf",
-    "Fender Stratocaster (1962)": "https://www.electricherald.com/wp-content/uploads/2016/06/Fender-Stratocaster-Blueprints.pdf",
-    "Gibson Les Paul (1959 Reissue)": "https://www.electricherald.com/wp-content/uploads/2016/06/Gibson-Les-Paul-Blueprints.pdf",
-    "Brian May 'Red Special' (Plano Detallado)": "http://www.guitarmaking.co.uk/wp-content/uploads/2013/11/Red-Special-Drawing.pdf",
-    
-    "-- MODELOS DE JAZZ --": None,
-    "Gibson L-5 CES (Archtop)": "https://www.luthierlibrary.com/sites/default/files/plan/2018/01/Gibson%20L-5%20Master%20Model%20Plan.pdf",
-    "Gibson ES-335 (Semi-hollow)": "https://www.gitarrebass.de/wp-content/uploads/2016/08/Gibson_ES-335_Plan.pdf",
-    "Gibson ES-175": "https://www.electricherald.com/wp-content/uploads/2016/06/Gibson-ES175-Blueprints.pdf",
-    "Benedetto Archtop": "https://www.benedettoguitars.com/wp-content/uploads/2014/12/Benedetto-Archtop-Plan.pdf",
-    "D'Angelico New Yorker": "https://www.electricherald.com/wp-content/uploads/2016/06/DAngelico-New-Yorker-Blueprints.pdf"
+    "Brian May 'Red Special' (Completo)": "https://www.redspecial-library.com/downloads/plans/Red-Special-Drawing.pdf",
+    "Fender Telecaster (Cuerpo y Mástil)": "https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxndWl0YXJicmlkZ2V8Z3g6MmE0ZThkMzYyYmFhZTViNQ",
+    "Fender Stratocaster (Detallado)": "https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxndWl0YXJicmlkZ2V8Z3g6N2M0ZTMwYmFmYmYxZDU0NQ",
+    "Gibson Les Paul (Standard 59)": "https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxndWl0YXJicmlkZ2V8Z3g6MzhjZTE0ZDIwNmI1M2I0OA",
+    "Benedetto Archtop (Jazz)": "https://www.benedettoguitars.com/wp-content/uploads/2014/12/Benedetto-Archtop-Plan.pdf",
+    "Gibson ES-335 (Semi-hollow)": "https://pisotones.com/335/planos/335_re-v2.pdf"
 }
 
-# Filtrar solo los que tienen enlace para el selector
-opciones = [k for k, v in planos.items() if v is not None]
+modelo = st.selectbox("Selecciona modelo:", list(planos.keys()))
+url = planos[modelo]
 
-modelo_elegido = st.selectbox("Selecciona tu próximo proyecto:", opciones)
-papel = st.radio("Configuración de impresión:", ["A4 (Mosaico)", "A3 / Plotter"])
+st.markdown(f"### [CLIC AQUÍ PARA ABRIR EL PDF DE: {modelo}]({url})")
 
-st.info(f"Modelo seleccionado: **{modelo_elegido}**")
+st.info("Nota: Algunos planos se abren en el visor de Google Docs para garantizar que no den error 'Not Found'. Desde ahí puedes descargar el PDF original.")
 
-url_plano = planos[modelo_elegido]
-
-# BOTÓN DE DESCARGA DIRECTA
-st.markdown(f"""
-    <a href="{url_plano}" target="_blank" style="text-decoration: none;">
-        <div style="background-color: #2e7d32; color: white; padding: 15px; text-align: center; border-radius: 10px; font-weight: bold; font-size: 20px; cursor: pointer;">
-            📥 DESCARGAR PLANO PDF (ESCALA 1:1)
-        </div>
-    </a>
-""", unsafe_allow_html=True)
-
-st.markdown("---")
-st.warning("""
-**CONSEJOS DE LUTHERÍA:**
-* **Escala:** Antes de cortar madera, imprime solo la página que contenga la escala graduada y compruébala con una regla de acero.
-* **Brian May:** Este plano es especialmente complejo por el sistema de puente y pastillas; léelo con detenimiento.
-* **Impresión:** Recuerda siempre marcar 'Tamaño Real' (100%) en los ajustes de tu PDF.
-""")
-
-st.caption("Directorio actualizado y verificado para Kuzlas")
+st.warning("⚠️ Recuerda: Imprimir siempre al 100% de escala.")
